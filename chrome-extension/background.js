@@ -15,11 +15,19 @@ chrome.browserAction.onClicked.addListener(function() {
       const formData = new FormData();
       formData.append('file', screenshotUrl);
 
-      const data = await fetch('http://localhost:8000/', {
-        method: 'POST',
-        body: formData,
-      })
+      try {
+        const data = await fetch('http://localhost:8000/', {
+          method: 'POST',
+          headers: {
+          },
+          body: formData,
+        });
 
-      console.log(data);
+        // console.log(data.json());
+        console.log(data);
+
+      } catch (err) {
+        console.log(err);
+      }
   });
 });
