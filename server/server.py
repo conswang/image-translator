@@ -2,6 +2,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 class Server(BaseHTTPRequestHandler):
     def do_POST(self):
+        print(self.path)
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
