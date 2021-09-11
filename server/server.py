@@ -9,9 +9,11 @@ class Server(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Credentials', 'true')
         self.end_headers()
 
+        print(self.requestline)
+
         message = 'Hello world'
         # self.wfile.write(bytes(message, "utf8"))
-        self.wfile.write(json.dumps({message: message}))
+        self.wfile.write(json.dumps({"hello": message}).encode('utf-8'))
 
 with HTTPServer(('', 8000), Server) as server:
     server.serve_forever()

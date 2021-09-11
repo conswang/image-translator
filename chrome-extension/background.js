@@ -9,25 +9,18 @@
 // open.
 
 // Listen for a click on the camera icon. On that click, take a screenshot.
-chrome.browserAction.onClicked.addListener(function() {
+chrome.browserAction.onClicked.addListener(function () {
+  chrome.tabs.captureVisibleTab(async function (screenshotUrl) {
+    const formData = new FormData();
+    formData.append("file", screenshotUrl);
 
-  chrome.tabs.captureVisibleTab(async function(screenshotUrl) {
-      const formData = new FormData();
-      formData.append('file', screenshotUrl);
-
-      try {
-        const data = await fetch('http://localhost:8000/', {
-          method: 'POST',
-          headers: {
-          },
-          body: formData,
-        });
-
-        // console.log(data.json());
-        console.log(data);
-
-      } catch (err) {
-        console.log(err);
-      }
+    fetch("http://localhost:8000/", {
+      method: "POST",
+      headers: {},
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch(err => console.log(err))
   });
 });
