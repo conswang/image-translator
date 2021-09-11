@@ -19,11 +19,12 @@ chrome.browserAction.onClicked.addListener(function() {
         const data = await fetch('http://localhost:8000/', {
           method: 'POST',
           headers: {
+            'Content-Type': 'multipart/form-data',
           },
           body: formData,
         });
-
-        // console.log(data.json());
+        const response = await data.json();
+        console.log(response);
         console.log(data);
 
       } catch (err) {
